@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Final_ISO605.Core.Ingreso>
+
+@{
+    ViewData["Title"] = "Ingresos";
+}
+
+<h3>@ViewData["Title"]</h3>
+<hr />
+<form>
+    <button asp-action="CreateOrEdit" asp-controller="Ingreso" class="btn btn-primary mb-3">Crear Ingreso</button>
+    <table class="table tabletable-responsive table-bordered table-hover">
+        <thead>
+            <tr class="table-active">
+                <th>
+                    @Html.DisplayNameFor(model => model.ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoIngresoID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Estado)
+                </th>
+                <th>
+                    Accion
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var Ingreso in Model)
+                {
+                    <tr>
+                        <td>@Ingreso.ID</td>
+                        <td>@(Ingreso.TipoIngresoID != null ? Ingreso.TipoIngreso.Descripcion : "")</td>
+                        <td>@Ingreso.Descripcion</td>
+                        <td>@Ingreso.Estado</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a asp-controller="Ingreso" asp-action="CreateOrEdit" asp-route-id="@Ingreso.ID" class="btn btn-success">Editar</a>
+                                <a asp-controller="Ingreso" asp-action="Delete" asp-route-id="@Ingreso.ID" class="btn btn-danger">Borrar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">
+                        <div>
+                            No hay Ingresos.
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

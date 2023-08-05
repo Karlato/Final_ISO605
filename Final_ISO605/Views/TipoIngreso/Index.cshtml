@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Final_ISO605.Core.TipoIngreso>
+
+@{
+    ViewData["Title"] = "Tipos de Ingresos";
+}
+
+<h3>@ViewData["Title"]</h3>
+<hr />
+<form>
+    <button asp-action="CreateOrEdit" asp-controller="TipoIngreso" class="btn btn-primary mb-3">Crear Tipo de Ingreso</button>
+    <table class="table tabletable-responsive table-bordered table-hover">
+        <thead>
+            <tr class="table-active">
+                <th>
+                    @Html.DisplayNameFor(model => model.ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Estado)
+                </th>
+                <th>
+                    Accion
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var tipoIngreso in Model)
+                {
+                    <tr>
+                        <td>@tipoIngreso.ID</td>
+                        <td>@tipoIngreso.Descripcion</td>
+                        <td>@tipoIngreso.Estado</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a asp-controller="TipoIngreso" asp-action="CreateOrEdit" asp-route-id="@tipoIngreso.ID" class="btn btn-success">Editar</a>
+                                <a asp-controller="TipoIngreso" asp-action="Delete" asp-route-id="@tipoIngreso.ID" class="btn btn-danger">Borrar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">
+                        <div>
+                            No hay Tipos de Ingresos.
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
